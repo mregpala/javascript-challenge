@@ -5,17 +5,26 @@
   <meta charset="utf-8">
   <title>UFO Finder</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/superhero/bootstrap.min.css"> -->
   <link rel="stylesheet" href="static/css/bootstrap.min.css">
   <link rel="stylesheet" href="static/css/ufo_style.css">
 </head>
 
 <body>
     <div class="container">
-        <div class="jumbotron">
+     <div class="jumbotron">
           <img class="title-img" src="static/images/are_we_alone.jpg">
-        </div>
-        <div class="col-md-10">
+     </div>
+     <div class="row text-center">
+      <form id="form">
+        <div id="divform text-center"  class="form-group col-md-12-3">
+          <label class="col-form-label input_default" for="inputDefault"></label><b>Siting Date</b></label>
+          <input type="text" class="form-control" placeholder="1/1/2010" id="dateInput">
+        <button id="button" type="button" class="btn btn-default">Filter Sitings By Date</button> 
+        </div>       
+      </form>
+     </div>
+     <div class = "row"> 
+        <div class="col-md-12">
             <div id="table-area" class="">
               <table class="table table-striped">
                 <thead class="table-info">
@@ -33,6 +42,7 @@
               </table>
             </div>
         </div>
+      </div>  
     </div>    
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.js"></script>
   <script src="static/js/data.js"></script>
