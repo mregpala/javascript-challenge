@@ -1,3 +1,7 @@
+//Created By: Michael Regpala
+//Date: 2020-04-04
+//Purpose: Facilitates manipulatino of UFO data on HTML page.'
+
 // from data.js
 var tableData = data;
 
@@ -14,25 +18,22 @@ function getUniqueArray(arr){
     console.log(retval)
 }
 
-// YOUR CODE HERE!
-
-
+//Get HTHL Reference points
 var tbody = d3.select("tbody");
-
 var input = d3.select("#dateInput")
 var button = d3.select("#button")
 var filter = d3.select(".dropdown_filters")
 
+//Initialize local variables
 var inputValue = ""
 var tableDataMap = []
-
-
 var dateFilter = ""
 var cityFilter = ""
 var stateFilter = ""
 var countryFilter = ""
 var shapeFilter = ""
 
+//Handle function for filter change
 function handleChange(event){
   //Get Current Filter Values
   dateFilter = d3.select("#sitingid option:checked").text();
@@ -65,13 +66,11 @@ function handleChange(event){
     dataFiltered = tableData.filter(e => {return(e.shape == shapeFilter)});
     tableData = dataFiltered.map(e => {return e;});
   };
-  console.log(`${dateFilter} ${cityFilter}`)
-  console.log(tableData)
-  // filter.selectAll("li").remove();
-  // filter.remove("select");
-  // filter.remove("option");
-  //Populate table and filters with filtered dataset.
+  
+  //Repopulate table after initiating filters.
   pop_table(tableData);
+
+  //I wanted to call pop_filters again to create cascading drop downs, but too many issues.
   //pop_filters();
 }
 
@@ -110,6 +109,9 @@ var dataShape = tableData.map(e => {
 })
 var dataShapeUnq = getUniqueArray(dataShape).sort()
 
+//Disable On Change Event
+filter.on("change",null)
+
 //Utilize pop_dd function to populate drop down filters
 pop_dd(dataDateUnq,"Siting Date","sitingid")
 pop_dd(dataCityUnq,"City","cityid")
@@ -117,6 +119,8 @@ pop_dd(dataStateUnq,"State","stateid")
 pop_dd(dataCountryUnq,"Country","countryid")
 pop_dd(dataShapeUnq,"UFO Shape","shapeid")
 
+//Enable On Change Event after drop down filters populatwed
+filter.on("change",handleChange)
 }
 
 function pop_dd(list,ddname,idval) {
@@ -132,35 +136,13 @@ function pop_dd(list,ddname,idval) {
         optionitem = selector.append("option")
         // optionitem.value(element);
         optionitem.text(element);
+        if (idval == "sitingid" & dateFilter == "" & element == "All Values" ) {
+          selector.attr("selected","All Values");
+        }
+        else if (idval == "sitingid" & dateFilter == element) {
+          selector.attr("selected",element)
+          };
     })
-    // if (idval == "sitingid" & dateFilter == "" ) {
-    //   optionitem.attr("selected","All Va lues");
-    // }
-    // else if (idval == "sitingid") {
-    //   console.log(dateFilter)
-    //   optionitem.attr("selected",dateFilter)
-    //   };
-
-    // if (idval == "cityid" & cityFilter == "" ) {
-    //   optionitem.attr("selected","All Values");
-    // }
-    // else if (idval == "cityid") {
-    //   optionitem.attr("selected",cityFilter)};
-
-    // if (idval == "stateid" & stateFilter == "") {
-    //   optionitem.attr("selected","All Values");
-    // }
-    // else {optionitem.attr("selected",stateFilter)};
-
-    // if (idval == "countryid" & countryFilter == "" ) {
-    //   optionitem.attr("selected","All Values");
-    // }
-    // else {optionitem.attr("selected",countryFilter)};
-
-    // if (idval == "shapeid" & shapeFilter == "") {
-    //   optionitem.attr("selected","All Values");
-    // }
-    // else {optionitem.attr("selected",shapeFilter)};
 }
 
 
@@ -176,7 +158,9 @@ data.forEach((siting) => {
     });
   })};
 
+//Populate table and filters drop down lists on page initialization
 pop_table(tableData);
 pop_filters();
 
+//Create listener for droipdown event change
 filter.on("change", handleChange);
