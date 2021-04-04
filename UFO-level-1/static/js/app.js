@@ -1,3 +1,9 @@
+//Created By: Michael Regpala
+//Date: 2020-04-04
+//Purpose: Facilitates manipulation of UFO data on HTML page.'
+//         Utlizing input filter and button.
+
+
 // from data.js
 var tableData = data;
 
@@ -21,13 +27,18 @@ function dataFilter(data) {
 function handleChange(event){
   inputValue = input.property("value");
   tableData = data;
-  tableDataMap = tableData.filter(dataFilter);
-  tableData = tableDataMap.map(e => {return e;})
+  console.log(inputValue.length)
+  //If Input field is greater then filter else reload entire dataset.
+  if (inputValue.length > 0 ){
+    tableDataMap = tableData.filter(dataFilter);
+    tableData = tableDataMap.map(e => {return e;})
+  }
   pop_table(tableData)
 }
 
 var row = ""
 var cell = ""
+//Function that populates data
 function pop_table(data){
 tbody.selectAll("tr").remove();
 tbody.selectAll("td").remove();
@@ -36,7 +47,6 @@ data.forEach((siting) => {
     Object.entries(siting).forEach(([key, value]) => {
       cell = row.append("td");
       cell.text(value);
-      console.log(value)
     });
   })};
 
