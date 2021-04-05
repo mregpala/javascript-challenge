@@ -1,6 +1,7 @@
 //Created By: Michael Regpala
 //Date: 2020-04-04
-//Purpose: Facilitates manipulatino of UFO data on HTML page.'
+//Purpose: Facilitates manipulatino of UFO data on HTML page. 
+//Utilizing mulitple drop down filter lists'
 
 // from data.js
 var tableData = data;
